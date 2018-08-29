@@ -1,0 +1,10 @@
+Flask==1.0.2
+SQLAlchemy==1.2.10
+psycopg2==2.7.5
+psycopg2-binary==2.7.5
+sqla-yaml-fixtures
+PyJWT
+oauth2client
+requests
+google-auth
+pycodestyle

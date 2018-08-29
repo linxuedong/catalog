@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{{ item.category.name }}
+<form action="{{ url_for('edit', item_name=item.title) }}" method="post">
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="title">Title</span>
+        </div>
+        <input type="text" class="form-control" aria-label="title" aria-describedby="title" name="title" value="{{ item.title }}">
+    </div>
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="title">Description</span>
+        </div>
+        <input type="text" class="form-control" placeholder="Description" aria-label="Description" aria-describedby="description" name="description" value="{{ item.description }}">
+    </div>
+
+    <div class="input-group mb-3">
+        <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Category</label>
+        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name='category'>
+            {% for category in categories %}
+                <option value="{{ category.id }}" {% if category == item.category %}selected{% endif %}>
+                    {{ category.name }}
+                </option>
+            {% endfor %}
+        </select>
+
+    </div>
+
+    <input type="submit" class="btn btn-primary">
+</form>
+{% endblock %}

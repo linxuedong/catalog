@@ -1,0 +1,58 @@
+- User:
+    - __key__: Dawn Lin
+      name: Dawn Lin
+      email: xuedonglin1994@gmail.com
+      picture: https://lh5.googleusercontent.com/-wSU0opkbbGI/AAAAAAAAAAI/AAAAAAAAABo/5Z9KUZnQcuM/s96-c/photo.jpg
+
+    - __key__: Sam
+      name: Sam
+      email: UncleSam@gmail.com
+      picture: https://i1.sndcdn.com/artworks-000164273704-s0t0hr-t500x500.jpg
+
+
+- Category:
+    - __key__: Soccer
+      name: Soccer
+      user: Dawn Lin
+
+    - __key__: Basketball
+      name: Basketball
+      user: Dawn Lin
+
+    - __key__: Baseball
+      name: Baseball
+      user: Sam
+
+    - __key__: Frisbee
+      name: Frisbee
+      user: Dawn Lin
+
+    - __key__: Snowboarding
+      name: Snowboarding
+      user: Dawn Lin
+
+    - __key__: Rock Climbing
+      name: Rock Climbing
+      user: Sam
+
+
+- Item:
+    - title: Soccer Cleats
+      category: Soccer
+      description: The shoes
+      user: Dawn Lin
+
+    - title: Jersey
+      category: Soccer
+      description: The shirt
+      user: Dawn Lin
+
+    - title: Bat
+      category: Baseball
+      description: The bat
+      user: Sam
+
+    - title: Snowboard
+      category: Snowboarding
+      description: Best of any terrain and conditions.
+      user: Dawn Lin

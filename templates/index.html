@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <section class="col-3 category">
+        <h1>Categories</h1>
+        {% for category in categories %}
+        <p>
+            <a href="{{ url_for('item_list', category_name=category.name) }}">{{ category.name }}</a>
+        </p>
+
+        {% endfor %}
+    </section>
+
+    <section class="col item">
+        <h1>Latest Items</h1>
+        {% for item in items %}
+        <p>
+            <a href="{{ url_for('item_detail', category_name=item.category.name, item_name=item.title) }}">{{ item.title }}</a>
+            <span class="text-secondary">({{ item.category.name }})</span>
+        </p>
+
+        {% endfor %}
+    </section>
+</div>
+
+{% endblock %}

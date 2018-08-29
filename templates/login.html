@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- GOOGLE PLUS SIGN IN-->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"> </script>
+<script src="//apis.google.com/js/platform.js?onload=start"> </script>
+
+<div class="g-signin2" data-onsuccess="onSignIn"></div>
+<div><a href="#" onclick="signOut();">Sign out</a></div>
+<p>name: <span id="name"></span></p>
+<script>
+function onSignIn(googleUser) {
+  auth2 = gapi.auth2.init()
+  if (auth2.isSignedIn.get()) {
+      var profile = googleUser.getBasicProfile();
+      console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+      console.log('Name: ' + profile.getName());
+      console.log('Image URL: ' + profile.getImageUrl());
+      console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+      $('#name').text(profile.getName())
+  }
+
+  var id_token = googleUser.getAuthResponse().id_token;
+  console.log('id_token: ' + id_token);
+  if (id_token) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/gconnect?state={{STATE}}');
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.onload = function() {
+      console.log('Signed in as: ' + xhr.responseText);
+    };
+    xhr.send('idtoken=' + id_token);
+  }
+}
+
+function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
+}
+</script>
+
+{% endblock %}
