@@ -18,7 +18,7 @@ from google.auth.transport import requests
 app = Flask(__name__)
 app.config.from_pyfile('config.py')
 
-engine = create_engine('postgresql://vagrant@localhost/catalog')
+engine = create_engine('postgresql://catalog@localhost/catalog')
 Session = sessionmaker(bind=engine)
 session = Session()
 Base.metadata.create_all(engine)
