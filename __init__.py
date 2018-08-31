@@ -123,10 +123,10 @@ def get_user_id(email):
 
 @app.route('/')
 def index():
-    # 展示 categories
+    # show categories
     categories = session.query(Category).all()
 
-    # 展示 items
+    # show items
     items = session.query(Item).order_by(Item.created_at.desc()).all()
 
     return render_template('index.html', categories=categories, items=items)
