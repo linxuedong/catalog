@@ -1,16 +1,26 @@
 # The IP address and SSH port so your server can be accessed by the reviewer.
 IP: 52.194.187.198
+Port: 2200
 
 
 # Web application URL:
-[Catalog](http://52.194.187.198/login)
+[Catalog](http://52.194.187.198/)
+
 
 # A summary of software you installed and configuration changes made.
+### Login
+```
+chmod 400 catalog.pem
+ssh -i catalog.pem ubuntu@13.231.128.179
+```
+
 ### Update all currently installed packages.
 
 ```
 sudo apt-get update
 ```
+[自动更新](https://help.ubuntu.com/lts/serverguide/automatic-updates.html)
+[amazon ec2 - Update Ubuntu 10.04 - Server Fault](https://serverfault.com/questions/262751/update-ubuntu-10-04/262773#262773)
 
 ### Change the SSH port from 22 to 2200. Make sure to configure the Lightsail firewall to allow it.
 
@@ -32,8 +42,7 @@ ubuntu@ip-172-26-8-100:~$ sudo ufw status
 ### Configure the Uncomplicated Firewall (UFW) to only allow incoming connections for SSH (port 2200), HTTP (port 80), and NTP (port 123).
 
 ```
-sudo ufw allow ssh
-sudo ufw allow 2200/tcp
+sudo ufw allow 2200
 sudo ufw allow www
 sudo ufw allow 123
 sudo ufw enable
@@ -77,12 +86,24 @@ sudo nano /etc/sudoers.d/garder
 garder ALL=(ALL) NOPASSWD:ALL
 ```
 
+```
+sudo vim /etc/ssh/sshd_config
+
+# edit file
+PermitRootLogin no
+```
 
 ### Create an SSH key pair for grader using the ssh-keygen tool.
 
 ```
+sudo -i -u garder
 ssh-keygen
+
+touch authorized_keys
+vim authorized_keys
 ```
+Then add id_rsa.pub content into authorized_keys
+
 
 ## Prepare to deploy your project.
 
@@ -121,7 +142,6 @@ sudo apt-get install postgresql
 sudo -i -u postgres
 createuser catalog
 createdb -O catalog catalog
-createdb -O catalog catalog
 ```
 
 ### Install git.
@@ -132,6 +152,15 @@ cd /var/www
 sudo mkdir catalog
 sudo chmod 777 catalog
 git clone https://github.com/linxuedong/catalog.git
+```
+
+virtualenv
+```
+sudo apt-get install virtualenvwrapper
+. /etc/bash_completion.d/virtualenvwrapper
+mkvirtualenv catalog --python=/usr/bin/python3.5
+workon catalog
+pip install -r catalog/requirements.txt
 ```
 
 ### Install and configure Nginx to serve a Python Gunicorn application.
@@ -165,7 +194,6 @@ sudo service nginx restart
 
 Run gunicorn
 ```
-workon venv
 cd /var/www/
 gunicorn -w 4 -b 127.0.0.1:5000 catalog:app
 ```
