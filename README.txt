@@ -1,10 +1,10 @@
 # The IP address and SSH port so your server can be accessed by the reviewer.
-IP: 52.194.187.198
+IP: 13.231.128.179
 Port: 2200
 
 
 # Web application URL:
-[Catalog](http://52.194.187.198/)
+[Catalog](http://13.231.128.179/)
 
 
 # A summary of software you installed and configuration changes made.
@@ -221,6 +221,11 @@ env PATH= /home/ubuntu/.virtualenvs/venv/bin
 chdir /var/www/
 
 exec gunicorn -w 4 -b 127.0.0.1:5000 catalog:app
+```
+
+Run
+```
+sudo service catalog start
 ```
 
 
